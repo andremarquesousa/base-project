@@ -1,0 +1,7 @@
+/*GENERAL*/
+@import 'general/font-face.css';
+@import 'general/general.css';
+
+/*Components*/
+@import 'components/featured.css';
+@import 'components/content.css';

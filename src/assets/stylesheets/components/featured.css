@@ -1,0 +1,18 @@
+section.featured {
+    h2 {
+        font-size: 40px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    picture,
+    picture img {
+        width: 100%
+    }
+
+    picture {
+        margin-top: 50px
+    }
+}
