@@ -1,5 +1,5 @@
 ## Setup
 
-* Instale as dependÃªncias com `npm install`
-* Rode a aplicaÃ§Ã£o com `gulp`
-* A aplicaÃ§Ã£o estarÃ¡ acessÃ­vel atravÃ©s do endereÃ§o http://localhost:8080/
+* Instale as dependências com `npm install`
+* Rode a aplicação com `gulp`
+* A aplicação estará acessível através do endereço http://localhost:8080/
