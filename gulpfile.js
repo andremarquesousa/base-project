@@ -7,6 +7,8 @@ const postcss = require('gulp-postcss');
 const precss = require('precss');
 const cssnano = require('cssnano');
 const pug = require('gulp-pug');
+const uglify = require('gulp-uglify');
+const del = require('del');
 
 const processors = [
     precss(),
@@ -17,9 +19,9 @@ const processors = [
 // create web server with browserSync
 function server() {
     browserSync.init({
+        watch: true,
         port: 8080,
         open: true,
-        ghostMode: false,
         server: './dist/'
     });
 }
@@ -41,6 +43,7 @@ function styles() {
 // compiling to final javascript
 function scripts() {
     return gulp.src('./src/assets/javascripts/**/*.js')
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/assets/javascripts/'));
 }
 
@@ -68,6 +71,12 @@ function videos() {
         .pipe(gulp.dest('./dist/assets/videos'));
 }
 
+// data to dist
+function data() {
+    return gulp.src('./src/assets/data/**/*')
+        .pipe(gulp.dest('./dist/assets/data'));
+}
+
 function watch() {
     gulp.watch('./src/assets/views/**/*.pug', html);
     gulp.watch('./src/assets/stylesheets/**/*.css', styles);
@@ -76,6 +85,13 @@ function watch() {
     gulp.watch('./src/assets/fonts/**/*', fonts);
     gulp.watch('./src/assets/audios/**/*', audios);
     gulp.watch('./src/assets/videos/**/*', videos);
+    gulp.watch('./src/assets/data/**/*', data);
+
+    gulp.watch(['./src/**'], browserSync.reload({stream: true}));
+}
+
+function clean() {
+    return del('./dist');
 }
 
 const build = [
@@ -85,7 +101,8 @@ const build = [
     images,
     fonts,
     audios,
-    videos
+    videos,
+    data
 ]
 
-gulp.task('default', gulp.series(gulp.parallel(server, build, watch)));
+gulp.task('default', gulp.series(clean, build, gulp.parallel(server, watch)));
